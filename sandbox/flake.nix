@@ -47,7 +47,7 @@
       let
         org = "rydnr";
         repo = "sandbox";
-        version = "0.0.71";
+        version = "0.0.72";
         sha256 = "052bc0xdscxvq6qhxyrx2j9x80skg6gkd3ijjcb99a3qfbv22kc1";
         pname = "${org}-${repo}";
         pkgs = import nixos { inherit system; };
