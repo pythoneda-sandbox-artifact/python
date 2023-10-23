@@ -47,8 +47,8 @@
       let
         org = "rydnr";
         repo = "sandbox";
-        version = "0.0.40";
-        sha256 = "sha256-gU0h9nJ4qJQWkzKONp95UwPUkxQ9+w6xwbsz3TpgSxQ=";
+        version = "0.0.47";
+        sha256 = "052bc0xdscxvq6qhxyrx2j9x80skg6gkd3ijjcb99a3qfbv22kc1";
         pname = "${org}-${repo}";
         pkgs = import nixos { inherit system; };
         description = "rydnr's sandbox";
