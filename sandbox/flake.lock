@@ -90,7 +90,40 @@
         "flake-utils": "flake-utils",
         "nixos": "nixos",
         "pythoneda-shared-pythoneda-banner": "pythoneda-shared-pythoneda-banner",
-        "pythoneda-shared-pythoneda-domain": "pythoneda-shared-pythoneda-domain"
+        "pythoneda-shared-pythoneda-domain": "pythoneda-shared-pythoneda-domain",
+        "rydnr-sandbox-dep": "rydnr-sandbox-dep"
+      }
+    },
+    "rydnr-sandbox-dep": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixos": [
+          "nixos"
+        ],
+        "pythoneda-shared-pythoneda-banner": [
+          "pythoneda-shared-pythoneda-banner"
+        ],
+        "pythoneda-shared-pythoneda-domain": [
+          "pythoneda-shared-pythoneda-domain"
+        ]
+      },
+      "locked": {
+        "dir": "sandbox-dep",
+        "lastModified": 1698514606,
+        "narHash": "sha256-vjxf4/OQjgvVAo07b2NwpltbWxSrbp9SJs0CrPMeiIc=",
+        "owner": "rydnr",
+        "repo": "sandbox-dep-artifact",
+        "rev": "bd61464d4b1e14f111ab330c80a6cd4de19f79e6",
+        "type": "github"
+      },
+      "original": {
+        "dir": "sandbox-dep",
+        "owner": "rydnr",
+        "ref": "0.0.2",
+        "repo": "sandbox-dep-artifact",
+        "type": "github"
       }
     }
   },

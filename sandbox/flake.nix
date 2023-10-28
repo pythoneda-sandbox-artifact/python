@@ -34,6 +34,15 @@
       url =
         "github:pythoneda-shared-pythoneda/domain-artifact/0.0.11?dir=domain";
     };
+    rydnr-sandbox-dep = {
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixos.follows = "nixos";
+      inputs.pythoneda-shared-pythoneda-banner.follows =
+        "pythoneda-shared-pythoneda-banner";
+      inputs.pythoneda-shared-pythoneda-domain.follows =
+        "pythoneda-shared-pythoneda-domain";
+      url = "github:rydnr/sandbox-dep-artifact/0.0.2?dir=sandbox-dep";
+    };
   };
   outputs = inputs:
     with inputs;
@@ -62,7 +71,8 @@
         nixpkgsRelease =
           builtins.replaceStrings [ "\n" ] [ "" ] "nixos-${nixosVersion}";
         shared = import "${pythoneda-shared-pythoneda-banner}/nix/shared.nix";
-        rydnr-sandbox-for = { python, pythoneda-shared-pythoneda-domain }:
+        rydnr-sandbox-for =
+          { python, pythoneda-shared-pythoneda-domain, rydnr-sandbox-dep }:
           let
             pnameWithUnderscores =
               builtins.replaceStrings [ "-" ] [ "_" ] pname;
@@ -84,6 +94,7 @@
               inherit homepage pname pythonMajorMinorVersion pythonpackage
                 version;
               package = builtins.replaceStrings [ "." ] [ "/" ] pythonpackage;
+              rydnrSandboxDep = rydnr-sandbox-dep.version;
               src = pyprojectTemplateFile;
             };
             src = pkgs.fetchFromGitHub {
@@ -95,7 +106,7 @@
             format = "pyproject";
 
             nativeBuildInputs = with python.pkgs; [ pip pkgs.jq poetry-core ];
-            propagatedBuildInputs = with python.pkgs; [ ];
+            propagatedBuildInputs = with python.pkgs; [ rydnr-sandbox-dep ];
 
             pythonImportsCheck = [ pythonpackage ];
 
@@ -184,21 +195,29 @@
             python = pkgs.python38;
             pythoneda-shared-pythoneda-domain =
               pythoneda-shared-pythoneda-domain.packages.${system}.pythoneda-shared-pythoneda-domain-python38;
+            rydnr-sandbox-dep =
+              rydnr-sandbox-dep.packages.${system}.rydnr-sandbox-dep-python38;
           };
           rydnr-sandbox-python39 = rydnr-sandbox-for {
             python = pkgs.python39;
             pythoneda-shared-pythoneda-domain =
               pythoneda-shared-pythoneda-domain.packages.${system}.pythoneda-shared-pythoneda-domain-python39;
+            rydnr-sandbox-dep =
+              rydnr-sandbox-dep.packages.${system}.rydnr-sandbox-dep-python39;
           };
           rydnr-sandbox-python310 = rydnr-sandbox-for {
             python = pkgs.python310;
             pythoneda-shared-pythoneda-domain =
               pythoneda-shared-pythoneda-domain.packages.${system}.pythoneda-shared-pythoneda-domain-python310;
+            rydnr-sandbox-dep =
+              rydnr-sandbox-dep.packages.${system}.rydnr-sandbox-dep-python310;
           };
           rydnr-sandbox-python311 = rydnr-sandbox-for {
             python = pkgs.python311;
             pythoneda-shared-pythoneda-domain =
               pythoneda-shared-pythoneda-domain.packages.${system}.pythoneda-shared-pythoneda-domain-python311;
+            rydnr-sandbox-dep =
+              rydnr-sandbox-dep.packages.${system}.rydnr-sandbox-dep-python311;
           };
         };
       });
