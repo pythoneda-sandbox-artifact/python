@@ -1,9 +1,9 @@
 """
-rydnr/sandbox/artifact/sandbox.py
+pythoneda/sandbox/artifact/sandbox.py
 
 This file declares the Sandbox class.
 
-Copyright (C) 2023-today rydnr's rydnr/sandbox-artifact
+Copyright (C) 2023-today rydnr's pythoneda-sandbox/python-artifact
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,12 +28,12 @@ from pythoneda.shared.nix_flake import (
 
 class SandboxArtifact(PythonPackage):
     """
-    Represents the rydnr/sandbox-artifact Python package.
+    Represents the pythoneda-sandbox/python-artifact Python package.
 
     Class name: Domain
 
     Responsibilities:
-        - Model the rydnr/sandbox-artifact Python package and its metadata.
+        - Model the pythoneda-sandbox/python-artifact Python package and its metadata.
 
     Collaborators:
         - pythoneda.shared.artifact.PythonPackage
@@ -53,10 +53,10 @@ class SandboxArtifact(PythonPackage):
         super().__init__(
             "rydnr",
             self.find_out_version(repositoryFolder),
-            f"https://github.com/rydnr/sandbox-artifact/{version}?dir=sandbox",
+            f"https://github.com/pythoneda-sandbox/python-artifact/{version}?dir=python",
             inputs,
             templateSubfolder,
-            "Artifact space of https://github.com/rydnr/sandbox-artifact",
+            "Artifact space of https://github.com/pythoneda-sandbox/python-artifact",
             self.__class__.url,
             License.from_id(
                 Gpl3.license_type(),
@@ -77,4 +77,4 @@ class SandboxArtifact(PythonPackage):
         :return: Such url.
         :rtype: str
         """
-        return "https://github.com/rydnr/sandbox-artifact"
+        return "https://github.com/pythoneda-sandbox/python-artifact"

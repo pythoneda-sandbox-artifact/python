@@ -1,9 +1,9 @@
 """
-rydnr/sandbox/__init__.py
+pythoneda/sandbox/__init__.py
 
-This file ensures rydnr.sandbox is a namespace.
+This file ensures pythoneda.sandbox is a namespace.
 
-Copyright (C) 2023-today rydnr's rydnr/sandbox-artifact
+Copyright (C) 2023-today rydnr's pythoneda-sandbox/python-artifact
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
