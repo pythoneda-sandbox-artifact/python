@@ -1,8 +1,8 @@
-# sandbox/flake.nix
+# python/flake.nix
 #
-# This file packages rydnr/sandbox as a Nix flake.
+# This file packages pythoneda-sandbox/python as a Nix flake.
 #
-# Copyright (C) 2023-today rydnr's sandbox
+# Copyright (C) 2023-today rydnr's pythoneda-sandbox/python-artifact
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {
-  description = "rydnr's Sandbox";
+  description = "pythoneda-sandbox Python package";
   inputs = rec {
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
     nixos.url = "github:NixOS/nixpkgs/nixos-23.05";
@@ -34,14 +34,15 @@
       url =
         "github:pythoneda-shared-pythoneda/domain-artifact/0.0.11?dir=domain";
     };
-    rydnr-sandbox-dep = {
+    pythoneda-sandbox-python-dep = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
       inputs.pythoneda-shared-pythoneda-banner.follows =
         "pythoneda-shared-pythoneda-banner";
       inputs.pythoneda-shared-pythoneda-domain.follows =
         "pythoneda-shared-pythoneda-domain";
-      url = "github:rydnr/sandbox-dep-artifact/0.0.2?dir=sandbox-dep";
+      url =
+        "github:pythoneda-sandbox/python-dep-artifact/0.0.26?dir=python-dep";
     };
   };
   outputs = inputs:
@@ -54,15 +55,15 @@
         defaultSystems ++ [ "armv6l-linux" ];
     in flake-utils.lib.eachSystem supportedSystems (system:
       let
-        org = "rydnr";
-        repo = "sandbox";
-        version = "0.0.144";
-        sha256 = "1mx3blg5p9gkdk1lnznan2y3ccahsqfspjnzxk665f0mcn2ym5ix";
+        org = "pythoneda-sandbox";
+        repo = "python";
+        version = "0.0.145";
+        sha256 = "03h85icx0l3yrypzgc9im32rgd779i5xciszih092yzkr4fw7kc9";
         pname = "${org}-${repo}";
         pkgs = import nixos { inherit system; };
-        description = "rydnr's sandbox";
+        description = "pythoneda-sandbox Python package";
         license = pkgs.lib.licenses.gpl3;
-        homepage = "https://github.com/rydnr/sandbox";
+        homepage = "https://github.com/pythoneda-sandbox/python";
         maintainers = [ "rydnr <github@acm-sl.org>" ];
         archRole = "S";
         space = "D";
@@ -71,12 +72,12 @@
         nixpkgsRelease =
           builtins.replaceStrings [ "\n" ] [ "" ] "nixos-${nixosVersion}";
         shared = import "${pythoneda-shared-pythoneda-banner}/nix/shared.nix";
-        rydnr-sandbox-for =
-          { python, pythoneda-shared-pythoneda-domain, rydnr-sandbox-dep }:
+        pythoneda-sandbox-python-for = { python
+          , pythoneda-shared-pythoneda-domain, pythoneda-sandbox-python-dep }:
           let
             pnameWithUnderscores =
               builtins.replaceStrings [ "-" ] [ "_" ] pname;
-            pythonpackage = "rydnr";
+            pythonpackage = "pythoneda.sandbox";
             pythonVersionParts = builtins.splitVersion python.version;
             pythonMajorVersion = builtins.head pythonVersionParts;
             pythonMajorMinorVersion =
@@ -94,7 +95,7 @@
               inherit homepage pname pythonMajorMinorVersion pythonpackage
                 version;
               package = builtins.replaceStrings [ "." ] [ "/" ] pythonpackage;
-              rydnrSandboxDep = rydnr-sandbox-dep.version;
+              pythonedaSandboxPythonDep = pythoneda-sandbox-python-dep.version;
               src = pyprojectTemplateFile;
             };
             src = pkgs.fetchFromGitHub {
@@ -106,7 +107,8 @@
             format = "pyproject";
 
             nativeBuildInputs = with python.pkgs; [ pip pkgs.jq poetry-core ];
-            propagatedBuildInputs = with python.pkgs; [ rydnr-sandbox-dep ];
+            propagatedBuildInputs = with python.pkgs;
+              [ pythoneda-sandbox-python-dep ];
 
             pythonImportsCheck = [ pythonpackage ];
 
@@ -137,13 +139,13 @@
       in rec {
         defaultPackage = packages.default;
         devShells = rec {
-          default = rydnr-sandbox-default;
-          rydnr-sandbox-default = rydnr-sandbox-python311;
-          rydnr-sandbox-python38 = shared.devShell-for {
+          default = pythoneda-sandbox-python-default;
+          pythoneda-sandbox-python-default = pythoneda-sandbox-python-python311;
+          pythoneda-sandbox-python-python38 = shared.devShell-for {
             banner = "${
                 pythoneda-shared-pythoneda-banner.packages.${system}.pythoneda-shared-pythoneda-banner-python38
               }/bin/banner.sh";
-            package = packages.rydnr-sandbox-python38;
+            package = packages.pythoneda-sandbox-python-python38;
             python = pkgs.python38;
             pythoneda-shared-pythoneda-banner =
               pythoneda-shared-pythoneda-banner.packages.${system}.pythoneda-shared-pythoneda-banner-python38;
@@ -151,11 +153,11 @@
               pythoneda-shared-pythoneda-domain.packages.${system}.pythoneda-shared-pythoneda-domain-python38;
             inherit archRole layer nixpkgsRelease org pkgs repo space;
           };
-          rydnr-sandbox-python39 = shared.devShell-for {
+          pythoneda-sandbox-python-python39 = shared.devShell-for {
             banner = "${
                 pythoneda-shared-pythoneda-banner.packages.${system}.pythoneda-shared-pythoneda-banner-python39
               }/bin/banner.sh";
-            package = packages.rydnr-sandbox-python39;
+            package = packages.pythoneda-sandbox-python-python39;
             python = pkgs.python39;
             pythoneda-shared-pythoneda-banner =
               pythoneda-shared-pythoneda-banner.packages.${system}.pythoneda-shared-pythoneda-banner-python39;
@@ -163,11 +165,11 @@
               pythoneda-shared-pythoneda-domain.packages.${system}.pythoneda-shared-pythoneda-domain-python39;
             inherit archRole layer nixpkgsRelease org pkgs repo space;
           };
-          rydnr-sandbox-python310 = shared.devShell-for {
+          pythoneda-sandbox-python-python310 = shared.devShell-for {
             banner = "${
                 pythoneda-shared-pythoneda-banner.packages.${system}.pythoneda-shared-pythoneda-banner-python310
               }/bin/banner.sh";
-            package = packages.rydnr-sandbox-python310;
+            package = packages.pythoneda-sandbox-python-python310;
             python = pkgs.python310;
             pythoneda-shared-pythoneda-banner =
               pythoneda-shared-pythoneda-banner.packages.${system}.pythoneda-shared-pythoneda-banner-python310;
@@ -175,11 +177,11 @@
               pythoneda-shared-pythoneda-domain.packages.${system}.pythoneda-shared-pythoneda-domain-python310;
             inherit archRole layer nixpkgsRelease org pkgs repo space;
           };
-          rydnr-sandbox-python311 = shared.devShell-for {
+          pythoneda-sandbox-python-python311 = shared.devShell-for {
             banner = "${
                 pythoneda-shared-pythoneda-banner.packages.${system}.pythoneda-shared-pythoneda-banner-python311
               }/bin/banner.sh";
-            package = packages.rydnr-sandbox-python311;
+            package = packages.pythoneda-sandbox-python-python311;
             python = pkgs.python311;
             pythoneda-shared-pythoneda-banner =
               pythoneda-shared-pythoneda-banner.packages.${system}.pythoneda-shared-pythoneda-banner-python311;
@@ -189,35 +191,35 @@
           };
         };
         packages = rec {
-          default = rydnr-sandbox-default;
-          rydnr-sandbox-default = rydnr-sandbox-python311;
-          rydnr-sandbox-python38 = rydnr-sandbox-for {
+          default = pythoneda-sandbox-python-default;
+          pythoneda-sandbox-python-default = pythoneda-sandbox-python-python311;
+          pythoneda-sandbox-python-python38 = pythoneda-sandbox-python-for {
             python = pkgs.python38;
             pythoneda-shared-pythoneda-domain =
               pythoneda-shared-pythoneda-domain.packages.${system}.pythoneda-shared-pythoneda-domain-python38;
-            rydnr-sandbox-dep =
-              rydnr-sandbox-dep.packages.${system}.rydnr-sandbox-dep-python38;
+            pythoneda-sandbox-python-dep =
+              pythoneda-sandbox-python-dep.packages.${system}.pythoneda-sandbox-python-dep-python38;
           };
-          rydnr-sandbox-python39 = rydnr-sandbox-for {
+          pythoneda-sandbox-python-python39 = pythoneda-sandbox-python-for {
             python = pkgs.python39;
             pythoneda-shared-pythoneda-domain =
               pythoneda-shared-pythoneda-domain.packages.${system}.pythoneda-shared-pythoneda-domain-python39;
-            rydnr-sandbox-dep =
-              rydnr-sandbox-dep.packages.${system}.rydnr-sandbox-dep-python39;
+            pythoneda-sandbox-python-dep =
+              pythoneda-sandbox-python-dep.packages.${system}.pythoneda-sandbox-python-dep-python39;
           };
-          rydnr-sandbox-python310 = rydnr-sandbox-for {
+          pythoneda-sandbox-python-python310 = pythoneda-sandbox-python-for {
             python = pkgs.python310;
             pythoneda-shared-pythoneda-domain =
               pythoneda-shared-pythoneda-domain.packages.${system}.pythoneda-shared-pythoneda-domain-python310;
-            rydnr-sandbox-dep =
-              rydnr-sandbox-dep.packages.${system}.rydnr-sandbox-dep-python310;
+            pythoneda-sandbox-python-dep =
+              pythoneda-sandbox-python-dep.packages.${system}.pythoneda-sandbox-python-dep-python310;
           };
-          rydnr-sandbox-python311 = rydnr-sandbox-for {
+          pythoneda-sandbox-python-python311 = pythoneda-sandbox-python-for {
             python = pkgs.python311;
             pythoneda-shared-pythoneda-domain =
               pythoneda-shared-pythoneda-domain.packages.${system}.pythoneda-shared-pythoneda-domain-python311;
-            rydnr-sandbox-dep =
-              rydnr-sandbox-dep.packages.${system}.rydnr-sandbox-dep-python311;
+            pythoneda-sandbox-python-dep =
+              pythoneda-sandbox-python-dep.packages.${system}.pythoneda-sandbox-python-dep-python311;
           };
         };
       });

@@ -1,8 +1,8 @@
-# sandbox/pyprojecttoml.template
+# python/pyprojecttoml.template
 #
-# This file is the template for rydnr/sandbox's pyproject.toml
+# This file is the template for pythoneda-sandbox/python's pyproject.toml
 #
-# Copyright (C) 2023-today rydnr's rydnr/sandbox-artifact
+# Copyright (C) 2023-today rydnr's pythoneda-sandbox/python-artifact
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@ packages = [{include = "@package@"}]
 
 [tool.poetry.dependencies]
 python = "^@pythonMajorMinorVersion@"
-rydnr-sandbox-dep = "^@rydnrSandboxDep@"
+pythoneda-sandbox-python-dep = "^@pythonedaSandboxPythonDep@"
 
 [build-system]
 requires = ["poetry-core"]
