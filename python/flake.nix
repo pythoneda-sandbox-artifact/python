@@ -32,7 +32,7 @@
       inputs.pythoneda-shared-pythoneda-banner.follows =
         "pythoneda-shared-pythoneda-banner";
       url =
-        "github:pythoneda-shared-pythoneda/domain-artifact/0.0.11?dir=domain";
+        "github:pythoneda-shared-pythoneda/domain-artifact/0.0.13?dir=domain";
     };
     pythoneda-sandbox-python-dep = {
       inputs.flake-utils.follows = "flake-utils";
@@ -42,7 +42,7 @@
       inputs.pythoneda-shared-pythoneda-domain.follows =
         "pythoneda-shared-pythoneda-domain";
       url =
-        "github:pythoneda-sandbox/python-dep-artifact/0.0.26?dir=python-dep";
+        "github:pythoneda-sandbox/python-dep-artifact/0.0.139?dir=python-dep";
     };
   };
   outputs = inputs:

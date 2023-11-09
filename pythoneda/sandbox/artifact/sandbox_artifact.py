@@ -45,9 +45,9 @@ class SandboxArtifact(PythonPackage):
         :param repositoryFolder: The repository folder.
         :type repositoryFolder: str
         """
-        flake_utils = FlakeUtilsNixFlake.default().to_input()
-        nixos = NixosNixFlake.default().to_input()
-        banner = PythonedaSharedPythonedaBannerNixFlake.default().to_input()
+        flake_utils = FlakeUtilsNixFlake.default()
+        nixos = NixosNixFlake.default()
+        banner = PythonedaSharedPythonedaBannerNixFlake.default()
         inputs = [flake_utils, nixos, banner]
         version = self.find_out_version(repositoryFolder)
         super().__init__(
