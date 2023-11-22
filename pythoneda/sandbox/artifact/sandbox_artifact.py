@@ -3,7 +3,7 @@ pythoneda/sandbox/artifact/sandbox.py
 
 This file declares the Sandbox class.
 
-Copyright (C) 2023-today rydnr's pythoneda-sandbox/python-artifact
+Copyright (C) 2023-today rydnr's pythoneda-sandbox-artifact/python
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -26,14 +26,14 @@ from pythoneda.shared.nix_flake import (
 )
 
 
-class SandboxArtifact(PythonPackage):
+class Sandbox(PythonPackage):
     """
-    Represents the pythoneda-sandbox/python-artifact Python package.
+    Represents the pythoneda-sandbox/python Python package.
 
     Class name: Domain
 
     Responsibilities:
-        - Model the pythoneda-sandbox/python-artifact Python package and its metadata.
+        - Model the pythoneda-sandbox/python Python package and its metadata.
 
     Collaborators:
         - pythoneda.shared.artifact.PythonPackage
@@ -41,7 +41,7 @@ class SandboxArtifact(PythonPackage):
 
     def __init__(self, repositoryFolder: str):
         """
-        Creates a new PythonPackage instance.
+        Creates a new Sandbox instance.
         :param repositoryFolder: The repository folder.
         :type repositoryFolder: str
         """
@@ -53,10 +53,10 @@ class SandboxArtifact(PythonPackage):
         super().__init__(
             "rydnr",
             self.find_out_version(repositoryFolder),
-            f"https://github.com/pythoneda-sandbox/python-artifact/{version}?dir=python",
+            f"https://github.com/pythoneda-sandbox-def/python/{version}",
             inputs,
             templateSubfolder,
-            "Artifact space of https://github.com/pythoneda-sandbox/python-artifact",
+            "Artifact space of https://github.com/pythoneda-sandbox/python",
             self.__class__.url,
             License.from_id(
                 Gpl3.license_type(),
@@ -77,4 +77,4 @@ class SandboxArtifact(PythonPackage):
         :return: Such url.
         :rtype: str
         """
-        return "https://github.com/pythoneda-sandbox/python-artifact"
+        return "https://github.com/pythoneda-sandbox-def/python"

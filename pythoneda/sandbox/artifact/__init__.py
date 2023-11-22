@@ -3,7 +3,7 @@ pythoneda/sandbox/artifact/__init__.py
 
 This file ensures pythoneda.sandbox.artifact is a namespace.
 
-Copyright (C) 2023-today rydnr's pythoneda-sandbox/python-artifact
+Copyright (C) 2023-today rydnr's pythoneda-sandbox-artifact/python
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
