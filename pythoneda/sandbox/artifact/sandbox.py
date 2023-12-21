@@ -78,3 +78,13 @@ class Sandbox(PythonPackage):
         :rtype: str
         """
         return "https://github.com/pythoneda-sandbox-def/python"
+
+    def url_for(self, version: str) -> str:
+        """
+        Retrieves the url for given version.
+        :param version: The version.
+        :type version: str
+        :return: The url.
+        :rtype: str
+        """
+        return f"https://github.com/pythoneda-sandbox-def/python/{version}"
