@@ -18,12 +18,19 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-from pythoneda.shared.artifact import PythonPackage
+from pythoneda.shared.artifact import (
+    ArchitecturalRole,
+    HexagonalLayer,
+    PescioSpace,
+    PythonPackage,
+)
 from pythoneda.shared.nix_flake import (
     FlakeUtilsNixFlake,
     License,
+    NixosNixFlake,
     PythonedaSharedPythonedaBannerNixFlake,
 )
+from pythoneda.shared.nix_flake.licenses import Gpl3
 
 
 class Sandbox(PythonPackage):
@@ -39,23 +46,22 @@ class Sandbox(PythonPackage):
         - pythoneda.shared.artifact.PythonPackage
     """
 
-    def __init__(self, repositoryFolder: str):
+    def __init__(self, version: str):
         """
         Creates a new Sandbox instance.
-        :param repositoryFolder: The repository folder.
-        :type repositoryFolder: str
+        :param version: The package version.
+        :type version: str
         """
         flake_utils = FlakeUtilsNixFlake.default()
         nixos = NixosNixFlake.default()
         banner = PythonedaSharedPythonedaBannerNixFlake.default()
         inputs = [flake_utils, nixos, banner]
-        version = self.find_out_version(repositoryFolder)
         super().__init__(
             "rydnr",
-            self.find_out_version(repositoryFolder),
+            version,
             f"https://github.com/pythoneda-sandbox-def/python/{version}",
             inputs,
-            templateSubfolder,
+            "pythoneda",
             "Artifact space of https://github.com/pythoneda-sandbox/python",
             self.__class__.url,
             License.from_id(
@@ -67,6 +73,9 @@ class Sandbox(PythonPackage):
             ["rydnr <github@acm-sl.org>"],
             2023,
             "rydnr",
+            PescioSpace.DECISION,
+            ArchitecturalRole.BOUNDED_CONTEXT,
+            HexagonalLayer.DOMAIN,
         )
 
     @classmethod
@@ -78,13 +87,3 @@ class Sandbox(PythonPackage):
         :rtype: str
         """
         return "https://github.com/pythoneda-sandbox-def/python"
-
-    def url_for(self, version: str) -> str:
-        """
-        Retrieves the url for given version.
-        :param version: The version.
-        :type version: str
-        :return: The url.
-        :rtype: str
-        """
-        return f"https://github.com/pythoneda-sandbox-def/python/{version}"
