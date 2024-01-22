@@ -25,13 +25,13 @@ from pythoneda.shared.artifact import (
     PescioSpace,
     PythonPackage,
 )
-from pythoneda.shared.nix_flake import (
+from pythoneda.shared.nix.flake import (
     FlakeUtilsNixFlake,
     License,
     NixosNixFlake,
     PythonedaSharedPythonedaBannerNixFlake,
 )
-from pythoneda.shared.nix_flake.licenses import Gpl3
+from pythoneda.shared.nix.flake.licenses import Gpl3
 
 
 class Sandbox(PythonPackage):
@@ -88,6 +88,8 @@ class Sandbox(PythonPackage):
         :rtype: str
         """
         return "https://github.com/pythoneda-sandbox-def/python"
+
+
 # vim: syntax=python ts=4 sw=4 sts=4 tw=79 sr et
 # Local Variables:
 # mode: python
